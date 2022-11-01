@@ -1,39 +1,35 @@
-import React, { useState} from 'react'
+import React, { useState} from 'react';
+//import { useHistory } from "react-router-dom";
+import { Container, Logo, SearchInput } from './styled';
 
-
-
-const Header = ({ search, onSearch}) => {
+export default ({ search, onSearch}) => {
 
     const [inputActive, setInputActive] = useState(search === '' ? false : true);
-    
+
     const handleInputFocus = () => {
         setInputActive(true);
     }
-
     const handleInputBlur = () => {
         if(search === ''){
             setInputActive(false);
         }
     }
-
     const handleChange = (e) => {
         onSearch(e.target.value);
     }
 
     return (
-        <div>
-            <div></div>
-            <input 
-            type='text' 
-            placeholder='Digite um produto ...'
-            value={search}
-            active={inputActive}
-            onChange={handleChange}
-            onBlur={handleInputBlur}
-            onFocus={handleInputFocus}
+        <Container>
+            <Logo src="/assets/logo.png" />
+            <SearchInput 
+                type='text' 
+                placeholder='Digite um produto ...'
+                value={search}
+                active={inputActive}
+                onChange={handleChange}
+                onBlur={handleInputBlur}
+                onFocus={handleInputFocus}
             />
-        </div>
+        </Container>
     )
 }
-
-export default Header

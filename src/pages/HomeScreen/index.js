@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import Header from '../../components/Header';
 import { Container, Titulo } from './styled';
 import api from '../../api';
+import Coin from '../../components/Coin';
+
 
 let searchTimer = null;
 
@@ -10,6 +12,7 @@ export default () => {
     const history = useHistory();
     const [headerSearch, setHeaderSearch] = useState('');
     const [totalPages, setTotalPages] = useState(0);
+    const [allCoins, setAllCoins] = useState([]);
     const [coins, setCoins] = useState([]);
     const [activePage, setActivePage] = useState(1);
     const [activeSearch, setActiveSearch] = useState('');
@@ -25,12 +28,20 @@ export default () => {
 
     }*/
 
+    const getCoins = () => {
+        const coin = allCoins.filter((coin) =>
+        coin.name.toLowerCase().includes(activeSearch.toLowerCase()))
+        setCoins(coin)
+    }
+    
+
     useEffect(()=>{
         const getAllCoins = async () => {
             setIsLoading(true);
             const coin = await api.getAllCoins();
             //console.log(coin)
-            setCoins(coin);
+            setAllCoins(coin);
+            setCoins(coin)
             /*if(coins.error === '') {
                 setCoins(coin);
             }*/
@@ -40,21 +51,37 @@ export default () => {
         setIsLoading(false);
     },[]);
 
+    useEffect(()=>{
+        //setCoins(allCoins);
+        getCoins()
+    },[activePage, activeSearch]);
+
+    useEffect(()=>{
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(()=>{
+                setActiveSearch(headerSearch);
+        }, 2000);
+    },[headerSearch]);
+
     const handleButtonClick = () => {
         history.push('/tela2/testador');
     }
 
     return (
         <Container>
-            <Titulo>Homepage</Titulo>
-            <button onClick={handleButtonClick}>Ir para Tela 2</button>
+            
             <Header search={headerSearch} onSearch={setHeaderSearch}/>
-            {isLoading && <h1 className="loadingMssg">Data Loading...</h1>}
+            {isLoading && <h1>Data Loading...</h1>}
             {coins.length > 0 && 
                 <div>
-                    {console.log(coins)}
+                    {coins.map(
+                        (coins, index) => {
+                            return (
+                                <Coin id={index} icon={coins.image} coinName={coins.name} coinSymbol={coins.symbol} price={coins.current_price}/>
+                            )
+                        })
+                    }
                 </div>
-
             }
         </Container>
     );
