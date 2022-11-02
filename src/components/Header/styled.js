@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    background-color: #136713;
+    background-color: grey;
     border-radius: 10px;
     padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 2px 5px;
 `;
 
 export const Logo = styled.img`

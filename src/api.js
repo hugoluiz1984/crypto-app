@@ -19,9 +19,7 @@ export default {
             fields.search = search;
         }
 
-        let queryString = new URLSearchParams(fields).toString();
-
-        const res = await fetch(BASE + '/products?' + queryString);
+        const res = await fetch(BASE + `/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=${page}&sparkline=false`);
         const json = await res.json();
 
         return json

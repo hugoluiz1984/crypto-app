@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHistory } from "react-router-dom";
+//import { useHistory } from "react-router-dom";
 import "./Coin.css";
 
 const Coin = (
@@ -10,16 +10,16 @@ const Coin = (
     id,}
 ) => {
 
-    let history = useHistory();
+    //let history = useHistory();
 
     return (
         <div key={id} className="Container">
             <div className="coinRow">
                 <div className="coin">
-                    <img src={icon} />
+                    <img src={icon}/>
                     <div className="coinLine"> {coinName} </div>
                     <div className="coinLine"> {coinSymbol} </div>
-                    <div className="coinLine"> $ {price} </div>
+                    <div className="coinLine"> {price !=='Price' ? `$ ${price}`:` ${price}`} </div>
                 </div>
             </div>
         </div>

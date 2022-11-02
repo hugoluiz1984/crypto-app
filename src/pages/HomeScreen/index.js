@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import Header from '../../components/Header';
-import { Container, Titulo } from './styled';
+import { Container, ProductPaginationArea, ProductPaginationItem} from './styled';
 import api from '../../api';
 import Coin from '../../components/Coin';
 
@@ -18,16 +18,6 @@ export default () => {
     const [activeSearch, setActiveSearch] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
-    /*const getAllCoins = async ()=> {
-        const prods = await api.getProducts(activeCategory, activePage, activeSearch);
-        if(prods.error === '') {
-            setProducts(prods.result.data);
-            setTotalPages(prods.result.pages);
-            setActivePage(prods.result.page);
-        }
-
-    }*/
-
     const getCoins = () => {
         const coin = allCoins.filter((coin) =>
         coin.name.toLowerCase().includes(activeSearch.toLowerCase()))
@@ -42,10 +32,7 @@ export default () => {
             //console.log(coin)
             setAllCoins(coin);
             setCoins(coin)
-            /*if(coins.error === '') {
-                setCoins(coin);
-            }*/
-            //ReactTooltip.rebuild();
+
         }
         getAllCoins();
         setIsLoading(false);
@@ -74,6 +61,7 @@ export default () => {
             {isLoading && <h1>Data Loading...</h1>}
             {coins.length > 0 && 
                 <div>
+                    <Coin id={''} icon={'/assets/name.png'} coinName={'Name'} coinSymbol={''} price={'Price'}/>
                     {coins.map(
                         (coins, index) => {
                             return (
@@ -83,6 +71,22 @@ export default () => {
                     }
                 </div>
             }
+            <div>
+            {totalPages > 0 &&
+                <ProductPaginationArea>
+                    {Array(totalPages).fill(0).map((item, index) => (
+                        <ProductPaginationItem 
+                            key={index}
+                            active={activePage}
+                            current={index + 1}
+                            onClick={()=>setActivePage(index+1)}
+                        >
+                          {index +1}  
+                        </ProductPaginationItem>
+                    ))}
+                </ProductPaginationArea>
+            }
+            </div>
         </Container>
     );
 }

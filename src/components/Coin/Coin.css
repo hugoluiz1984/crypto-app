@@ -4,16 +4,24 @@
 }
 .coinRow{
     margin: 2px 10px;
-    
+    border-radius: 10px;
     display: flex;
     flex: 1;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-
+    transition: .5s ease-in-out;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+}
+.coinRow:hover{
+    background-color: rgb(1, 1, 1,.8);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
 }
 .coin{
     border: 1px solid;
+    border-radius: 10px;
     display: flex;
     flex: 1;
     flex-direction: row;
@@ -26,7 +34,7 @@
     width:100px;
 }
 .coin img {
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     margin: 5px;
   }
