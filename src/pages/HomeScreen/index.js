@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import Header from '../../components/Header';
-import { Container, ProductPaginationArea, ProductPaginationItem} from './styled';
+import { Container, ProductPaginationArea, ProductPaginationItem, FirstLine, Coins } from './styled';
 import api from '../../api';
 import Coin from '../../components/Coin';
+import './index.css'
 
 
 let searchTimer = null;
@@ -20,12 +21,12 @@ export default () => {
 
     const getCoins = () => {
         const coin = allCoins.filter((coin) =>
-        coin.name.toLowerCase().includes(activeSearch.toLowerCase()))
+            coin.name.toLowerCase().includes(activeSearch.toLowerCase()))
         setCoins(coin)
     }
-    
 
-    useEffect(()=>{
+
+    useEffect(() => {
         const getAllCoins = async () => {
             setIsLoading(true);
             const coin = await api.getAllCoins();
@@ -36,19 +37,19 @@ export default () => {
         }
         getAllCoins();
         setIsLoading(false);
-    },[]);
+    }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         //setCoins(allCoins);
         getCoins()
-    },[activePage, activeSearch]);
+    }, [activePage, activeSearch]);
 
-    useEffect(()=>{
+    useEffect(() => {
         clearTimeout(searchTimer);
-        searchTimer = setTimeout(()=>{
-                setActiveSearch(headerSearch);
+        searchTimer = setTimeout(() => {
+            setActiveSearch(headerSearch);
         }, 2000);
-    },[headerSearch]);
+    }, [headerSearch]);
 
     const handleButtonClick = () => {
         history.push('/tela2/testador');
@@ -56,36 +57,51 @@ export default () => {
 
     return (
         <Container>
-            
-            <Header search={headerSearch} onSearch={setHeaderSearch}/>
+
+            <Header search={headerSearch} onSearch={setHeaderSearch} />
             {isLoading && <h1>Data Loading...</h1>}
-            {coins.length > 0 && 
-                <div>
-                    <Coin id={''} icon={'/assets/name.png'} coinName={'Name'} coinSymbol={''} price={'Price'}/>
+            {coins.length > 0 &&
+                <Coins>
+                    <FirstLine>
+                    <div className="coins">
+                        <div className="coinImg"> </div>
+                        <div className="coinLines"> Name </div>
+                        <div className="coinLines">  </div>
+                        <div className="coinLines"> Price </div>
+                        <div className="coinLines"> % </div>
+                    </div>
+                    </FirstLine>
                     {coins.map(
                         (coins, index) => {
                             return (
-                                <Coin id={index} icon={coins.image} coinName={coins.name} coinSymbol={coins.symbol} price={coins.current_price}/>
+                                <Coin id={index}
+                                    icon={coins.image}
+                                    coinName={coins.name}
+                                    coinSymbol={coins.symbol}
+                                    price={coins.current_price}
+                                    price_change={coins.price_change_percentage_24h.toFixed(2)}
+
+                                />
                             )
                         })
                     }
-                </div>
+                </Coins>
             }
             <div>
-            {totalPages > 0 &&
-                <ProductPaginationArea>
-                    {Array(totalPages).fill(0).map((item, index) => (
-                        <ProductPaginationItem 
-                            key={index}
-                            active={activePage}
-                            current={index + 1}
-                            onClick={()=>setActivePage(index+1)}
-                        >
-                          {index +1}  
-                        </ProductPaginationItem>
-                    ))}
-                </ProductPaginationArea>
-            }
+                {totalPages > 0 &&
+                    <ProductPaginationArea>
+                        {Array(totalPages).fill(0).map((item, index) => (
+                            <ProductPaginationItem
+                                key={index}
+                                active={activePage}
+                                current={index + 1}
+                                onClick={() => setActivePage(index + 1)}
+                            >
+                                {index + 1}
+                            </ProductPaginationItem>
+                        ))}
+                    </ProductPaginationArea>
+                }
             </div>
         </Container>
     );

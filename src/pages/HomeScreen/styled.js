@@ -17,3 +17,10 @@ export const ProductPaginationItem = styled.div`
     cursor: pointer;
     margin-right: 10px;
 `;
+export const FirstLine = styled.div`
+    font-weight: bold;
+`;
+export const Coins = styled.div`
+    margin-top: 20px;
+    
+`;

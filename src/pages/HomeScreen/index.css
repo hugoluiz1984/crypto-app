@@ -1,0 +1,18 @@
+.coins{
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    
+}
+.coinLines{
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    width:100px;
+}
+.coinImg {
+    height: 40px;
+    width: 45px;
+    margin: 5px;
+  }
