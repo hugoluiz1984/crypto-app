@@ -2,9 +2,9 @@ let BASE = 'https://api.coingecko.com/api/v3/coins'
 
 export default {
     getAllCoins: async () => {
-        const res = await fetch(BASE + '/markets?vs_currency=USD&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d');
+        const res = await fetch(BASE + '/markets?vs_currency=USD&order=market_cap_desc&sparkline=false&price_change_percentage=1h%2C24h%2C7d');
         const json = await res.json();
-
+        console.log(json);
         return json
     },
     getCoins: async (category, page, search) => {
@@ -19,7 +19,7 @@ export default {
             fields.search = search;
         }
 
-        const res = await fetch(BASE + `/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=${page}&sparkline=false`);
+        const res = await fetch(BASE + `/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=${page}&sparkline=false&price_change_percentage=1h%2C24h%2C7d`);
         const json = await res.json();
 
         return json
