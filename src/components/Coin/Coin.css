@@ -7,7 +7,6 @@
     display: flex;
     flex: 1;
     flex-direction: row;
-    justify-content: center;
     align-items: center;
     transition: .5s ease-in-out;
     cursor: pointer;
@@ -27,8 +26,16 @@
     align-items:center;
     width:100px;
 }
-.coin img {
+.coinRow img {
     height: 40px;
     width: 40px;
     margin: 5px;
   }
+.coinPrice{
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    width:100px;
+    justify-content: flex-end;
+}

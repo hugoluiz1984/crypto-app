@@ -67,20 +67,24 @@ export default () => {
                         <div className="coinImg"> </div>
                         <div className="coinLines"> Name </div>
                         <div className="coinLines">  </div>
-                        <div className="coinLines"> Price </div>
-                        <div className="coinLines"> % </div>
+                        <div className="coinPrice"> Price </div>
+                        <div className="coinPercent"> 1h </div>
+                        <div className="coinPercent"> 24h </div>
+                        <div className="coinPercent"> 7d </div>
                     </div>
                     </FirstLine>
                     {coins.map(
                         (coins, index) => {
                             return (
-                                <Coin id={index}
+                                <Coin id={index+1}
+                                    chave={index}
                                     icon={coins.image}
                                     coinName={coins.name}
                                     coinSymbol={coins.symbol}
                                     price={coins.current_price}
-                                    price_change={coins.price_change_percentage_24h.toFixed(2)}
-
+                                    price_change_1h={coins.price_change_percentage_1h_in_currency.toFixed(2)}
+                                    price_change_24h={coins.price_change_percentage_24h_in_currency.toFixed(2)}
+                                    price_change_7d={coins.price_change_percentage_7d_in_currency.toFixed(2)}
                                 />
                             )
                         })

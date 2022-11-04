@@ -25,7 +25,7 @@ export default ({ search, onSearch}) => {
             <Titulo>Gamma Crypto</Titulo>
             <SearchInput 
                 type='text' 
-                placeholder='Digite um produto ...'
+                placeholder='Type a coin name...'
                 value={search}
                 active={inputActive}
                 onChange={handleChange}

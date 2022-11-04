@@ -10,23 +10,24 @@ const Coin = (
     coinSymbol,
     price,
     id,
-    price_change
+    price_change_1h,
+    price_change_24h,
+    price_change_7d,
+    chave
 }
 ) => {
 
     //let history = useHistory();
 
     return (
-        <div key={id} className="Container">
-            <div className="coinRow">
-                <div className="coin">
-                    <img src={icon}/>
-                    <div className="coinLine"> {coinName} </div>
-                    <div className="coinLine"> {coinSymbol} </div>
-                    <div className="coinLine"> {price !=='Price' ? `$ ${price}`:` ${price}`} </div>
-                    <CoinPercent price_change={price_change}> {price_change}% </CoinPercent>
-                </div>
-            </div>
+        <div  key={id} className="coinRow">
+            <img src={icon} alt={coinName}/>
+            <div className="coinLine"> {coinName} </div>
+            <div className="coinLine"> {coinSymbol} </div>
+            <div className="coinPrice"> {price<1 ? `$ ${price}`:` $${price.toFixed(2)}`} </div>
+            <CoinPercent price_change={price_change_1h}> {price_change_1h}% </CoinPercent>
+            <CoinPercent price_change={price_change_24h}> {price_change_24h}% </CoinPercent>
+            <CoinPercent price_change={price_change_7d}> {price_change_7d}% </CoinPercent>
         </div>
     )
 }
